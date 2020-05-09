@@ -1,0 +1,264 @@
+{
+  "name": "user",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true,
+    "ttl": 31536000000
+  },
+  "replaceOnPUT": false,
+  "hidden": [
+    "password",
+    "verificationToken",
+    "emailVerified",
+    "realm"
+  ],
+  "scope": {
+    "include": [
+      {
+        "relation": "media"
+      }
+    ]
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "gender": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": false
+    },
+    "mediaId": {
+      "type": "string",
+      "required": false
+    },
+    "points": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "pointsInCart": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "birthdate": {
+      "type": "date",
+      "required": false
+    },
+    "cartProductsCount": {
+      "type": "number",
+      "required": false,
+      "default": 0
+    },
+    "createdAt": {
+      "type": "date",
+      "required": true,
+      "defaultFn": "now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "MultiAccessToken",
+      "polymorphic": {
+        "foreignKey": "userId",
+        "discriminator": "principalType"
+      },
+      "options": {
+        "disableInclude": true
+      }
+    },
+    "media": {
+      "type": "belongsTo",
+      "model": "media",
+      "foreignKey": "mediaId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "super-admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "super-admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "student",
+      "permission": "ALLOW",
+      "property": "changeMyPassword"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "student",
+      "permission": "ALLOW",
+      "property": "me"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "student",
+      "permission": "ALLOW",
+      "property": "myCart"
+    }
+  ],
+  "methods": {
+    "changePassword": {
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "number",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "path"
+          }
+        },
+        {
+          "arg": "newPassword",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "http": [
+        {
+          "path": "/:id/changePassword",
+          "verb": "put"
+        }
+      ]
+    },
+    "changeMyPassword": {
+      "accepts": [
+        {
+          "arg": "oldPassword",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "arg": "newPassword",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "arg": "req",
+          "type": "object",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "req"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "http": [
+        {
+          "path": "/changeMyPassword",
+          "verb": "put"
+        }
+      ]
+    },
+    "me": {
+      "accepts": [
+        {
+          "arg": "req",
+          "type": "object",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "req"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "http": [
+        {
+          "path": "/me",
+          "verb": "get"
+        }
+      ]
+    },
+    "myCart": {
+      "accepts": [
+        {
+          "arg": "req",
+          "type": "object",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "req"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "http": [
+        {
+          "path": "/myCart",
+          "verb": "get"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "admin",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true,
+    "ttl": 31536000000
+  },
+  "ownerRelations": true,
+  "hidden": [
+    "password",
+    "verificationToken",
+    "emailVerified",
+    "realm"
+  ],
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "MultiAccessToken",
+      "polymorphic": {
+        "foreignKey": "userId",
+        "discriminator": "principalType"
+      },
+      "options": {
+        "disableInclude": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

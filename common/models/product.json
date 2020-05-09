@@ -1,0 +1,257 @@
+{
+  "name": "product",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "replaceOnPUT": false,
+  "scope": {
+    "include": [
+      {
+        "relation": "media"
+      },
+      {
+        "relation": "category"
+      }
+    ]
+  },
+  "properties": {
+    "nameEn": {
+      "type": "string",
+      "required": true
+    },
+    "nameAr": {
+      "type": "string",
+      "required": true
+    },
+    "nameFr": {
+      "type": "string",
+      "required": true
+    },
+    "descriptionEn": {
+      "type": "string",
+      "required": true
+    },
+    "descriptionAr": {
+      "type": "string",
+      "required": true
+    },
+    "descriptionFr": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "number",
+      "required": true
+    },
+    "categoryId": {
+      "type": "number",
+      "required": true
+    },
+    "purchaseCount": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "quantity": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "deleted": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "createdAt": {
+      "type": "date",
+      "required": true,
+      "defaultFn": "now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "category": {
+      "type": "belongsTo",
+      "model": "category",
+      "foreignKey": "categoryId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "media": {
+      "type": "hasMany",
+      "model": "media",
+      "foreignKey": "productId",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "imagesProduct",
+      "keyThrough": "mediaId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "super-admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "student",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "student",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "super-admin",
+      "permission": "ALLOW",
+      "property": "addProduct"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "super-admin",
+      "permission": "ALLOW",
+      "property": "updateProduct"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "student",
+      "permission": "ALLOW",
+      "property": "addProductToCart"
+    }
+  ],
+  "methods": {
+    "addProduct": {
+      "accepts": [
+        {
+          "arg": "data",
+          "type": "object",
+          "required": true,
+          "description": ""
+        },
+        {
+          "arg": "imagesId",
+          "type": "array",
+          "required": false,
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "http": [
+        {
+          "path": "/addProduct",
+          "verb": "post"
+        }
+      ]
+    },
+    "updateProduct": {
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "number",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "path"
+          }
+        },
+        {
+          "arg": "data",
+          "type": "object",
+          "required": true,
+          "description": ""
+        },
+        {
+          "arg": "imagesId",
+          "type": "array",
+          "required": false,
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "http": [
+        {
+          "path": "/:id/updateProduct",
+          "verb": "put"
+        }
+      ]
+    },
+    "addProductToCart": {
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "number",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "path"
+          }
+        },
+        {
+          "arg": "quantity",
+          "type": "number",
+          "required": true,
+          "description": ""
+        },
+        {
+          "arg": "req",
+          "type": "object",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "req"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "http": [
+        {
+          "path": "/:id/addProductToCart",
+          "verb": "post"
+        }
+      ]
+    }
+  }
+}

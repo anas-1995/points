@@ -1,0 +1,22 @@
+{
+  "name": "imagesProduct",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "mediaId": {
+      "type": "number",
+      "required": true
+    },
+    "productId": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

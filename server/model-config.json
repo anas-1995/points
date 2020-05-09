@@ -1,0 +1,102 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "mainDB",
+    "public": false
+  },
+  "AccessToken": {
+    "dataSource": "mainDB",
+    "public": true
+  },
+  "ACL": {
+    "dataSource": "mainDB",
+    "public": true
+  },
+  "RoleMapping": {
+    "dataSource": "mainDB",
+    "public": true,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "mainDB",
+    "public": true
+  },
+  "admin": {
+    "dataSource": "mainDB",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "deleteById": false
+        }
+      }
+    }
+  },
+  "user": {
+    "dataSource": "mainDB",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "deleteById": false
+        }
+      }
+    }
+  },
+  "uploadFile": {
+    "dataSource": "files",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "upload": true,
+          "download": true
+        }
+      }
+    }
+  },
+  "media": {
+    "dataSource": "mainDB",
+    "public": true
+  },
+  "MultiAccessToken": {
+    "dataSource": "mainDB",
+    "public": true
+  },
+  "category": {
+    "dataSource": "mainDB",
+    "public": true
+  },
+  "product": {
+    "dataSource": "mainDB",
+    "public": true
+  },
+  "imagesProduct": {
+    "dataSource": "mainDB",
+    "public": true
+  },
+  "purchase": {
+    "dataSource": "mainDB",
+    "public": true
+  },
+  "cartProduct": {
+    "dataSource": "mainDB",
+    "public": true
+  }
+}
