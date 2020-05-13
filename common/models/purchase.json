@@ -18,14 +18,43 @@
       "type": "number",
       "required": true
     },
+    "quanitiy": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
     "createdAt": {
       "type": "date",
       "required": true,
       "defaultFn": "now"
     }
   },
+  "scope": {
+    "include": [
+      {
+        "relation": "product"
+      }
+    ]
+  },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "product": {
+      "type": "belongsTo",
+      "model": "product",
+      "foreignKey": "productId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "userId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
   "acls": [
     {
       "accessType": "EXECUTE",

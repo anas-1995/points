@@ -72,6 +72,16 @@ module.exports = function (User) {
     }
   }
 
+  User.myPurchase = async function (req, callback) {
+    try {
+      let userId = req.accessToken.userId;
+      let userPurchase = await User.app.models.purchase.find({ "where": { "userId": userId }, "order": "createdAt DESC" })
+      callback(null, userPurchase)
+    } catch (error) {
+      callback(error)
+    }
+  }
+
 
 
 };

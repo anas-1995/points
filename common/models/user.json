@@ -127,6 +127,13 @@
       "principalId": "student",
       "permission": "ALLOW",
       "property": "myCart"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "student",
+      "permission": "ALLOW",
+      "property": "myPurchase"
     }
   ],
   "methods": {
@@ -256,6 +263,34 @@
       "http": [
         {
           "path": "/myCart",
+          "verb": "get"
+        }
+      ]
+    },
+    "myPurchase": {
+      "accepts": [
+        {
+          "arg": "req",
+          "type": "object",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "req"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "http": [
+        {
+          "path": "/myPurchase",
           "verb": "get"
         }
       ]

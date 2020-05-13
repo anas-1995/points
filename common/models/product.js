@@ -10,6 +10,7 @@ module.exports = function (Product) {
                 const {
                     imagesProduct
                 } = models
+                console.log(data);
                 let mainProduct = await product.create(data)
                 let images = []
                 imagesId.forEach(element => {
@@ -70,20 +71,30 @@ module.exports = function (Product) {
                 if (mainProduct == null || mainProduct.deleted) {
                     throw Product.app.err.global.notFound()
                 }
+                let oldProduct = await cartProduct.findOne({ "where": { "productId": productId, "userId": userId } })
+                let oldProductQuantity = 0
+                if (oldProduct) {
+                    oldProductQuantity = oldProduct.quantity
+                }
 
                 if ((mainProduct.price * quantity) + mainUser.pointsInCart > mainUser.points) {
                     throw Product.app.err.global.donotHavePoints()
                 }
-                if (mainProduct.quantity < quantity) {
+                if (mainProduct.quantity < quantity + oldProductQuantity) {
                     throw Product.app.err.global.largeQuantity()
                 }
-                let oldProduct = await cartProduct.findOne({ "where": { "productId": productId, "userId": userId } })
+                let mainCartProduct;
                 if (oldProduct) {
-                    throw Product.app.err.global.alreadyHasProduct()
+                    mainCartProduct = await oldProduct.updateAttribute("quantity", oldProductQuantity + quantity)
                 }
-                let mainCartProduct = await cartProduct.create({ "userId": userId, "quantity": quantity, "productId": productId })
-                let mainPointsInCart = mainUser.pointsInCart + (mainProduct.price*quantity);
-                let mainCartProductsCount = mainUser.cartProductsCount + 1;
+                else {
+                    mainCartProduct = await cartProduct.create({ "userId": userId, "quantity": quantity, "productId": productId })
+                }
+                let mainPointsInCart = mainUser.pointsInCart + (mainProduct.price * quantity);
+                let mainCartProductsCount = mainUser.cartProductsCount
+                if (oldProduct == null) {
+                    mainCartProductsCount++;
+                }
                 await mainUser.updateAttributes({ "cartProductsCount": mainCartProductsCount, "pointsInCart": mainPointsInCart })
                 callback(null, mainCartProduct)
             })

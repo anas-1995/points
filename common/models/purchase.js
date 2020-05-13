@@ -31,7 +31,7 @@ module.exports = function (Purchase) {
                     if (element.quantity > product.quantity) {
                         errorElement.push(product)
                     }
-                    purchaseArray.push({ "productId": product.id, "userId": userId, "price": product.price })
+                    purchaseArray.push({ "productId": product.id, "userId": userId, "price": product.price, "quanitiy": element.quantity })
                     console.log("end")
 
                 });
@@ -55,9 +55,12 @@ module.exports = function (Purchase) {
 
                     let product = element.product();
                     let mainPurchaseCount = product.purchaseCount + 1;
-                    product.updateAttribute("purchaseCount", mainPurchaseCount)
+                    let mainQuantity = product.quantity - element.quantity;
+
+                    product.updateAttribute({ "purchaseCount": mainPurchaseCount, "quantity": mainQuantity })
 
                 });
+                await cartProduct.destroyAll({ "userId": userId })
                 callback(null, mainPurchases)
             })
         } catch (error) {
