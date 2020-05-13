@@ -31,7 +31,7 @@ module.exports = function (Purchase) {
                     if (element.quantity > product.quantity) {
                         errorElement.push(product)
                     }
-                    purchaseArray.push({ "productId": product.id, "userId": userId, "price": product.price, "quanitiy": element.quantity })
+                    purchaseArray.push({ "productId": product.id, "userId": userId, "price": product.price, "quantity": element.quantity })
                     console.log("end")
 
                 });
