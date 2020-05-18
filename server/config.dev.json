@@ -7,7 +7,7 @@
     "ffmpeg.exe",
     "ffprobe.exe"
   ],
-  "port": 3000,
+  "port": 3001,
   "remoting": {
     "context": false,
     "rest": {
