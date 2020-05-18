@@ -1,0 +1,17 @@
+{
+  "mainDB": {
+    "host": "127.0.0.1",
+    "database": "points-dev",
+    "username": "root",
+    "password": "Cro.456321",
+    "name": "mainDB",
+    "connector": "mysql",
+    "allowExtendedOperators": true
+  },
+  "files": {
+    "name": "files",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "../files/uploadFiles"
+  }
+}

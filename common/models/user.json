@@ -41,6 +41,26 @@
       "type": "string",
       "required": false
     },
+    "apartmentNumber": {
+      "type": "string",
+      "required": false
+    },
+    "streetName ": {
+      "type": "string",
+      "required": false
+    },
+    "civicNumber": {
+      "type": "string",
+      "required": false
+    },
+    "city": {
+      "type": "string",
+      "required": false
+    },
+    "postalCode ": {
+      "type": "string",
+      "required": false
+    },
     "points": {
       "type": "number",
       "required": true,

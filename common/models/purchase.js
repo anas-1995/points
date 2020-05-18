@@ -57,7 +57,7 @@ module.exports = function (Purchase) {
                     let mainPurchaseCount = product.purchaseCount + 1;
                     let mainQuantity = product.quantity - element.quantity;
 
-                    product.updateAttribute({ "purchaseCount": mainPurchaseCount, "quantity": mainQuantity })
+                    await product.updateAttributes({ "purchaseCount": mainPurchaseCount, "quantity": mainQuantity })
 
                 });
                 await cartProduct.destroyAll({ "userId": userId })

@@ -1,8 +1,8 @@
 {
   "restApiRoot": "/api",
   "host": "0.0.0.0",
-  "domain": "https://www.crownsoflight.ca:3000",
-  "siteDomain": "https://www.crownsoflight.ca:3000",
+  "domain": "http://195.201.69.7",
+  "siteDomain": "http://195.201.69.7",
   "programFFmpegName": [
     "ffmpeg.exe",
     "ffprobe.exe"
@@ -24,14 +24,5 @@
       "limit": "100kb"
     },
     "cors": false
-  },
-  "httpMode": false,
-  "certConfig": {
-    "path": "/etc/letsencrypt/live/crownsoflight.ca/",
-    "key": "privkey.pem",
-    "cert": "cert.pem",
-    "ca": [],
-    "requestCert": false,
-    "rejectUnauthorized": false
   }
 }
