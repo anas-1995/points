@@ -24,5 +24,14 @@
       "limit": "100kb"
     },
     "cors": false
+  },
+  "httpMode": false,
+  "certConfig": {
+    "path": "/etc/letsencrypt/live/crownsoflight.ca/",
+    "key": "privkey.pem",
+    "cert": "cert.pem",
+    "ca": [],
+    "requestCert": false,
+    "rejectUnauthorized": false
   }
 }
