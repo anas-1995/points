@@ -45,10 +45,6 @@
       "type": "string",
       "required": false
     },
-    "streetName ": {
-      "type": "string",
-      "required": false
-    },
     "civicNumber": {
       "type": "string",
       "required": false
