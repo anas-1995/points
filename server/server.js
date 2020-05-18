@@ -10,6 +10,7 @@ app.use(loopback.token({
   model: app.models.MultiAccessToken
 }));
 
+
 app.use(async function (req, res, next) {
   console.log(req.accessToken)
   if (req.accessToken) {

@@ -45,7 +45,7 @@
       "type": "string",
       "required": false
     },
-    "streetName ": {
+    "streetName": {
       "type": "string",
       "required": false
     },
@@ -57,7 +57,7 @@
       "type": "string",
       "required": false
     },
-    "postalCode ": {
+    "postalCode": {
       "type": "string",
       "required": false
     },
@@ -133,6 +133,13 @@
       "principalId": "student",
       "permission": "ALLOW",
       "property": "changeMyPassword"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "student",
+      "permission": "ALLOW",
+      "property": "updateInfo"
     },
     {
       "accessType": "EXECUTE",
@@ -231,6 +238,41 @@
         }
       ]
     },
+    "updateInfo": {
+      "accepts": [
+        {
+          "arg": "data",
+          "type": "object",
+          "required": true,
+          "description": ""
+        },
+        {
+          "arg": "req",
+          "type": "object",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "req"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "http": [
+        {
+          "path": "/updateInfo",
+          "verb": "put"
+        }
+      ]
+    },
+    
     "me": {
       "accepts": [
         {

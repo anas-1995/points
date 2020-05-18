@@ -52,6 +52,21 @@ module.exports = function (User) {
     }
   }
 
+  User.updateInfo = async function (data, req, callback) {
+    try {
+      let userId = req.accessToken.userId;
+      let mainUser = await User.findById(userId)
+      if (mainUser == null) {
+        throw User.app.err.global.notFound()
+      }
+
+      mainUser = await mainUser.updateAttributes(data)
+      callback(null, mainUser)
+    } catch (error) {
+      callback(error)
+    }
+  }
+
   User.me = async function (req, callback) {
     try {
       let userId = req.accessToken.userId;
