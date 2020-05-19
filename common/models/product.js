@@ -1,6 +1,16 @@
 'use strict';
 
 module.exports = function (Product) {
+    Product.observe('access', function (ctx, next) {
+        if (ctx.query.where == null)
+            ctx.query.where = {}
+        let temp = ctx.query.where
+        ctx.query.where = {}
+        ctx.query.where['and'] = [temp, { deleted: false }]
+        console.log(ctx)
+        next();
+    });
+
     Product.addProduct = async function (data, imagesId = [], callback) {
         try {
             await Product.app.dataSources.mainDB.transaction(async models => {

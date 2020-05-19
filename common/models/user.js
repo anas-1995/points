@@ -7,6 +7,15 @@ module.exports = function (User) {
     message: 'email is not unique'
   });
 
+  User.observe('access', function (ctx, next) {
+    if (ctx.query.where == null)
+        ctx.query.where = {}
+    let temp = ctx.query.where
+    ctx.query.where = {}
+    ctx.query.where['and'] = [temp, { deleted: false }]
+    next();
+});
+
   User.afterRemote('create', function (context, result, next) {
     const user = context.res.locals.user;
     console.log(result.id)
@@ -31,6 +40,24 @@ module.exports = function (User) {
       callback(error)
     }
   }
+
+  User.deleteUser = async function (id, callback) {
+    try {
+      let mainUser = await User.findById(id)
+      let userPurchase = await User.app.models.purchase.find({ "where": { "userId": id }, "order": "createdAt DESC" })
+      if (userPurchase.length == 0) {
+        await User.destroyAll({ "id": id })
+      }
+      else {
+        mainUser = await mainUser.updateAttribute('deleted', true)
+      }
+      callback(null)
+    } catch (error) {
+      callback(error)
+    }
+  }
+
+
 
 
   User.changeMyPassword = async function (oldPassword, newPassword, req, callback) {

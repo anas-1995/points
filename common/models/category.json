@@ -78,5 +78,34 @@
       "permission": "DENY"
     }
   ],
-  "methods": {}
+  "methods": {
+    "deleteCategory": {
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "number",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "path"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "http": [
+        {
+          "path": "/:id/deleteCategory",
+          "verb": "delete"
+        }
+      ]
+    }
+  }
 }

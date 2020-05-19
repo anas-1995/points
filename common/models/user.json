@@ -80,6 +80,11 @@
       "required": false,
       "default": 0
     },
+    "deleted": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
     "createdAt": {
       "type": "date",
       "required": true,
@@ -130,6 +135,13 @@
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
+      "principalId": "super-admin",
+      "permission": "ALLOW",
+      "property": "deleteUser"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
       "principalId": "student",
       "permission": "ALLOW",
       "property": "changeMyPassword"
@@ -164,6 +176,34 @@
     }
   ],
   "methods": {
+    "deleteUser": {
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "number",
+          "required": true,
+          "description": "",
+          "http": {
+            "source": "path"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "object",
+          "root": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "http": [
+        {
+          "path": "/:id/deleteUser",
+          "verb": "delete"
+        }
+      ]
+    },
     "changePassword": {
       "accepts": [
         {
@@ -272,7 +312,6 @@
         }
       ]
     },
-    
     "me": {
       "accepts": [
         {

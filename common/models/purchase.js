@@ -28,7 +28,7 @@ module.exports = function (Purchase) {
 
                     let product = element.product();
                     totalPoint += (product.price * element.quantity)
-                    if (element.quantity > product.quantity) {
+                    if (element.quantity > product.quantity || product.deleted) {
                         errorElement.push(product)
                     }
                     purchaseArray.push({ "productId": product.id, "userId": userId, "price": product.price, "quantity": element.quantity })
