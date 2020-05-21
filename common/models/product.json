@@ -31,15 +31,15 @@
     },
     "descriptionEn": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "descriptionAr": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "descriptionFr": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "price": {
       "type": "number",
