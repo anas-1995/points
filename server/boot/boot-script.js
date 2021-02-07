@@ -14,8 +14,8 @@ module.exports = function (app) {
   var ImagesProduct = app.models.ImagesProduct;
   var Purchase = app.models.Purchase;
   var CartProduct = app.models.CartProduct;
-  
-  
+
+
   var adminData = [{
     "email": "admin@points.com",
     "password": "password",
@@ -63,7 +63,7 @@ module.exports = function (app) {
     return new Promise(resolve => {
       Admin.find({
         "where": {
-          "email": "admin@points.com"
+          "email": "admin@crownsoflight.ca"
         }
       }, function (err, admin) {
         if (err) resolve(err)
@@ -109,15 +109,15 @@ module.exports = function (app) {
     await customdAutoUpload(MultiAccessToken, 'MultiAccessToken', []);
     await customdAutoUpload(ACL, 'ACL', []);
     await customdAutoUpload(User, 'user', []);
-    await customdAutoUpload(Media, 'media', []);  
-    await customdAutoUpload(Category, 'category', []);  
-    await customdAutoUpload(Product, 'product', []);  
-    await customdAutoUpload(ImagesProduct, 'imagesProduct', []);  
-    await customdAutoUpload(Purchase, 'purchase', []);  
-    await customdAutoUpload(CartProduct, 'cartProduct', []);  
-    
-    
-    
+    await customdAutoUpload(Media, 'media', []);
+    await customdAutoUpload(Category, 'category', []);
+    await customdAutoUpload(Product, 'product', []);
+    await customdAutoUpload(ImagesProduct, 'imagesProduct', []);
+    await customdAutoUpload(Purchase, 'purchase', []);
+    await customdAutoUpload(CartProduct, 'cartProduct', []);
+
+
+
   }
 
   init()
